@@ -42,6 +42,7 @@
 
                                @foreach(auth()->user()->notifications as $notification)
 
+
                                     <a class="dropdown-item" href="javascript:;" onclick="markNotificationRead('{{$notification->id}}')">
                                         <div class="d-flex align-items-center">
                                             <div class="user-online">
@@ -51,7 +52,11 @@
                                                 <h6 class="msg-name">{{$notification->data['message']}}<span class="msg-time float-end">
                                                         {{\Carbon\Carbon::parse($notification->created_at)->diffForHumans()}}
                                                     </span></h6>
-                                                <p class="msg-info"> New Cmr Created</p>
+                                                <p  class="msg-info"> New Cmr Created</p>
+                                                @if($notification->read_at ==null)
+                                                    <p id="p_{{$notification->id}}" class="newTag msg-header-badge">New</p>
+                                                @endif
+
                                             </div>
                                         </div>
                                     </a>
@@ -118,6 +123,7 @@
             .then(data => {
                 var count = data.count;
                 document.getElementById('notification_count').textContent =  count;
+                $('#p_'+notificationId).css("visibility","hidden")
 
                 console.log(count )
             })

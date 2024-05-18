@@ -69,6 +69,7 @@ class CmrController extends Controller
     public function create()
     {
 
+
         return view('admin.cmr_create');
     }
 
