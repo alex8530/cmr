@@ -189,7 +189,7 @@ class CmrController extends Controller
         $cmr =Cmr::find($request->cmr_id);
 
         // if( $cmr->status != "pending" ){
-            //thats means no one apply any request
+            //that is means no one apply any request
             $requestsCount=CmrRequest::where('cmr_id',$cmr->id)->whereIn('status',['approved','in_progress'])->count();
 
         if( $requestsCount>0 ){

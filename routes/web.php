@@ -155,6 +155,19 @@ Route::controller(SettingController::class)->group(function(){
     Route::post('/mark-notification-as-read/{notification}', [CmrController::class, 'MarkAsRead']);
 
 
+
+
+});
+
+// Site Setting All Route
+Route::controller(SettingController::class)->group(function(){
+    Route::get('/site/setting','SiteSetting')->name('site.setting');
+    Route::post('/update/site','UpdateSite')->name('update.site');
+
+
+    Route::get('/testcall','testcall');
+
+
 });
 
 
