@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cmr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -22,7 +23,11 @@ class AdminController extends Controller
 //        dd(auth()->user()->notifications  );
 
 
-        return view('admin.index');
+        $allCmr = Cmr::all();
+        $allUsers = User::all();
+        $completeCmr = Cmr::where('status','complete')->get();
+        $pendingCmr = Cmr::where('status','pending')->get();
+        return view('admin.index',compact('allUsers','allCmr','pendingCmr','completeCmr'));
     }
 
     public function AdminRegister(): View
