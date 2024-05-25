@@ -43,6 +43,15 @@
 
 
 	<title>Rocker </title>
+
+    <style>
+
+        #signature-pad {
+            border: 1px solid black;
+            margin-bottom: 1rem;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -251,7 +260,7 @@
 	<script src="{{asset('backend/assets/js/code.js')}}"></script>
 
 
-	{{-- <script>
+    {{-- <script>
 		new PerfectScrollbar(".app-container")
 	</script>  --}}
 

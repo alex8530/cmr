@@ -1,6 +1,8 @@
 @extends('admin.admin_dashboard')
 @section('admin')
-{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script> --}}
+
+    <script src="{{asset('backend/assets/js/jquery.min.js')}}"></script>
+
 
 <div class="page-content">
     <!--breadcrumb-->
@@ -16,7 +18,7 @@
             </nav>
         </div>
         <div class="ms-auto">
-           
+
         </div>
     </div>
     <!--end breadcrumb-->
@@ -39,18 +41,18 @@
                             <hr class="my-4" />
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe me-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
+                                    <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg"
+                                                          width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-globe me-2 icon-inline"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>Website</h6>
                                     <span class="text-secondary">https://codervent.com</span>
                                 </li>
-                             
+
                             </ul>
                         </div>
                     </div>
                 </div>
 <div class="col-lg-8">
     <div class="card">
-
-        <form method="POST" action="{{ route('admin.profile.store') }}"  enctype="multipart/form-data">
+        <form id ="form" method="POST" action="{{ route('admin.profile.store') }}"  enctype="multipart/form-data">
             @csrf
 
         <div class="card-body">
@@ -69,6 +71,7 @@
                 <div class="col-sm-9 text-secondary">
                     <input type="text" name="username" class="form-control" value="{{ $profileData->username }}" />
                 </div>
+
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3">
@@ -114,30 +117,86 @@
             </div>
 
 
+            <div class="row mb-3">
+                <div class="col-sm-3">
+                    <h6 class="mb-0">Signature</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                    <canvas   id="signature-pad" width="300" height="150"></canvas>
+                    <input type="hidden" name="signature" id="signature">
+                </div>
+            </div>
+
+
+
+
 
             <div class="row">
                 <div class="col-sm-3"></div>
-                <div class="col-sm-9 text-secondary">
-                    <input type="submit" class="btn btn-primary px-4" value="Save Changes" />
+                <div class="col-sm-3 text-secondary">
+                    <input type="button" onclick="submitForm()" class="btn btn-primary px-4" value="Save Changes" />
+                </div>
+                <div class="col-sm-2 text-secondary">
+                    <input id ="reset-canvas" type="button"  class="btn btn-danger px-4" value="Clear Signature" />
                 </div>
             </div>
-        </div> 
+        </div>
     </form>
 
 
     </div>
 
 
-    
+
 </div>
             </div>
         </div>
     </div>
 </div>
 
+
+    <script src="{{asset('frontend/js/pdf.min.js')}}"></script>
+    <script src="{{asset('frontend/js/signature_pad.min.js')}}"></script>
 <script type="text/javascript">
 
+    const signaturePad = new SignaturePad(document.getElementById('signature-pad'));
+
+    let canvas=document.getElementById('signature-pad')
+    ctx = canvas.getContext("2d");
+
+    let image =  new Image();
+    image.src = '{{url('storage/'.$profileData->signaturePath) }}';
+      image.onload = function () {
+         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+    };
+
+    // Add event listener to the reset button
+    document.getElementById('reset-canvas').addEventListener('click', resetCanvas);
+
+
+
+      function resetCanvas() {
+          signaturePad.clear()
+          console.log('asd')
+      }
+    function submitForm() {
+
+        if (signaturePad.isEmpty()) {
+            alert('Please provide a signature first.');
+            return;
+        }
+
+      $('#signature').val(signaturePad.toDataURL())
+
+      $('#form').submit();
+    }
+
+
     $(document).ready(function(){
+
+
+
+
         $('#image').change(function(e){
             var reader = new FileReader();
             reader.onload = function(e){
@@ -148,5 +207,6 @@
     });
 
 </script>
+
 
 @endsection

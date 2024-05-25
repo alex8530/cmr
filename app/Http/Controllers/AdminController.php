@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -100,6 +102,14 @@ class AdminController extends Controller
     }
     public function AdminProfileStore (Request $request ){
 
+        // dd($request);
+        $request->validate([
+            'signature' => 'required|string',
+
+        ]);
+
+
+
         $id = Auth::user()->id;
         $data = User::find($id);
         $data->name = $request->name;
@@ -107,6 +117,13 @@ class AdminController extends Controller
         $data->email = $request->email;
         $data->phone = $request->phone;
         $data->address = $request->address;
+
+        $signatureDataUrl = $request->input('signature');
+        $signaturePath = 'signatures/' . Str::random(40) . '.png';
+        Storage::disk('public')->put($signaturePath, base64_decode(explode(',', $signatureDataUrl)[1]));
+//        $signatureFullPath = storage_path('app/public/' . $signaturePath);
+        $data->signaturePath=$signaturePath;
+
 
         if ($request->file('photo')) {
            $file = $request->file('photo');

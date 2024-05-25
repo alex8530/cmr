@@ -6,6 +6,7 @@ use App\Http\Controllers\CmrRequestController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SignPdfController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Redis;
 
@@ -169,6 +170,16 @@ Route::controller(SettingController::class)->group(function(){
 
 
 });
+
+
+// sign cmr
+Route::controller(SignPdfController::class)->group(function(){
+    Route::get('/upload/pdf','uploadPdf')->name('upload.pdf');
+    Route::post('/upload/pdf','uploadPdfPost')->name('upload.pdf.post');
+    Route::post('/save/signature','saveSignature')->name('save.signature');
+
+});
+
 
 
 Route::get('/test', function(){

@@ -33,6 +33,18 @@
         </li>
         @endcan
 
+            @can ('upload.pdf')
+                <li>
+                    <a href="{{ route('upload.pdf') }}" target="_blank">
+                        <div class="parent-icon"><i class='bx bx-home-alt'></i>
+                        </div>
+                        <div class="menu-title">Sign CMR</div>
+                    </a>
+                </li>
+            @endcan
+
+
+
         @can('all.user')
         <li>
             <a href="javascript:;" class="has-arrow">

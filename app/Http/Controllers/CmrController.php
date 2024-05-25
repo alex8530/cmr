@@ -100,7 +100,7 @@ class CmrController extends Controller
 
         $file = $request->file('report_file');
         // $name_gen ='version_'.'0'.'_'.'cmr_id_'.$cmr->id.'_user_'. auth()->id() .'_'.  hexdec(uniqid()).'.'.$file->getClientOriginalExtension();
-        $name_gen ='version_0_'.'cmr_id_'.$cmr->cmr_id.'_user_'. auth()->id().'_' . date('YmdHi').'.'.$file->getClientOriginalExtension() ;
+        $name_gen ='version_0_'.'cmr_id_'.$cmr->id.'_user_'. auth()->id().'_' . date('YmdHi').'.'.$file->getClientOriginalExtension() ;
 
         $file->move(public_path('upload/cmr/'),$name_gen);
 

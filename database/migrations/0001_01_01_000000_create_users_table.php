@@ -25,10 +25,11 @@ return new class extends Migration
             $table->date('last_seen')->nullable();
             // $table->enum('roles',['admin','manager','user'])->default('user');
             $table->enum('active',['1','0'])->default('1');
+            $table->string('signaturePath')->nullable();
             $table->rememberToken();
             $table->timestamps();
 
-            
+
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
