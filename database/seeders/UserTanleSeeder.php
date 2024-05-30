@@ -24,15 +24,15 @@ class UserTanleSeeder extends Seeder
 
             [
                 'name' => 'payment',
-               
-               
+
+
             ] ,
             [
-              
+
                 'name' => 'network',
-               
-            ] 
-            
+
+            ]
+
         ]);
 
 
@@ -42,7 +42,7 @@ class UserTanleSeeder extends Seeder
                 'name' => 'Super',
                 'username' => 'super',
                 'email' => 'super@gmail.com',
-                'password' => Hash::make('123'), 
+                'password' => Hash::make('123'),
                 'active' => '1',
                 'group_id'=>'1'
             ],
@@ -50,16 +50,16 @@ class UserTanleSeeder extends Seeder
                 'name' => 'Admin',
                 'username' => 'admin',
                 'email' => 'admin@gmail.com',
-                'password' => Hash::make('123'), 
+                'password' => Hash::make('123'),
                 'active' => '1',
                 'group_id'=>'1'
             ],
-           
+
             [
                 'name' => 'User1',
                 'username' => 'user1',
                 'email' => 'user1@gmail.com',
-                'password' => Hash::make('123'), 
+                'password' => Hash::make('123'),
                 'active' => '1',
                 'group_id'=>'2'
             ],
@@ -67,7 +67,7 @@ class UserTanleSeeder extends Seeder
                 'name' => 'User2',
                 'username' => 'user2',
                 'email' => 'user2@gmail.com',
-                'password' => Hash::make('123'), 
+                'password' => Hash::make('123'),
                 'active' => '1',
                 'group_id'=>'2'
             ],
@@ -75,30 +75,30 @@ class UserTanleSeeder extends Seeder
                 'name' => 'User3',
                 'username' => 'user3',
                 'email' => 'user3@gmail.com',
-                'password' => Hash::make('123'), 
+                'password' => Hash::make('123'),
                 'active' => '1',
                 'group_id'=>'2'
             ]
-            
+
         ]);
 
-   
+
         // DB::table('permission_groups')->insert([
 
         //     [
         //         'name' => 'all_user',
-            
+
         //     ] ,
         //     [
         //         'name' => 'all_cmr',
-            
-        //     ]  
+
+        //     ]
         // ]);
 
 //  // Reset cached roles and permissions
 //  app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
- 
+
 //         Permission::create([
 //             'name' => 'edit',
 //             'group_name' => 'all_user',
@@ -110,20 +110,20 @@ class UserTanleSeeder extends Seeder
 //         ]);
 
 
-        
-       
+
+
         // Role::create([
-        //     'name' => 'super', 
+        //     'name' => 'super',
         // ])->givePermissionTo(Permission::all());
 
 
         // Role::create([
-        //     'name' => 'admin', 
+        //     'name' => 'admin',
         // ])->givePermissionTo(Permission::all());
 
-        
+
         // Role::create([
-        //     'name' => 'user', 
+        //     'name' => 'user',
         // ]) ->givePermissionTo([
         //     'dashboard.menu',
         //     'cmr.create',
@@ -137,22 +137,58 @@ class UserTanleSeeder extends Seeder
         //     'pending.cmr.complete',
         //     'my.request.menu',
         //     ]
-        
+
         // );
 
         Role::create([
-            'name' => 'super', 
+            'name' => 'super',
         ]);
         Role::create([
-            'name' => 'admin', 
+            'name' => 'admin',
         ]);
         Role::create([
-            'name' => 'user', 
+            'name' => 'user',
         ]);
         User::find('1')->assignRole('super');
         User::find('2')->assignRole('admin');
         User::find('3')->assignRole('user');
         User::find('4')->assignRole('user');
         User::find('5')->assignRole('user');
+
+
+
+        DB::table('smtp_settings')->insert([
+
+            [
+                'mailer' => 'mailer',
+                'host' => 'mailer',
+                'port' => 'mailer',
+                'username' => 'mailer',
+                'password' => 'mailer',
+                'encryption' => 'mailer',
+                'from_address' => 'mailer',
+            ]
+
+        ]);
+
+
+        DB::table('site_settings')->insert([
+
+            [
+                'app_name' => 'mailer',
+                'logo' => 'mailer',
+                'phone' => 'mailer',
+                'email' => 'mailer',
+                'address' => 'mailer',
+                'twitter' => 'mailer',
+                'facebook' => 'mailer',
+                'linkedin' => 'mailer',
+                'copyright' => 'mailer'
+
+            ]
+
+        ]);
+
+
     }
 }

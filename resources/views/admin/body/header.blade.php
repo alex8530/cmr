@@ -4,10 +4,10 @@
             <div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
             </div>
 
-              <div class="position-relative search-bar d-lg-block d-none" data-bs-toggle="modal" data-bs-target="#SearchModal">
-                <input class="form-control px-5" disabled type="search" placeholder="Search">
-                <span class="position-absolute top-50 search-show ms-3 translate-middle-y start-0 top-50 fs-5"><i class='bx bx-search'></i></span>
-              </div>
+{{--              <div class="position-relative search-bar d-lg-block d-none" data-bs-toggle="modal" data-bs-target="#SearchModal">--}}
+{{--                <input class="form-control px-5" disabled type="search" placeholder="Search">--}}
+{{--                <span class="position-absolute top-50 search-show ms-3 translate-middle-y start-0 top-50 fs-5"><i class='bx bx-search'></i></span>--}}
+{{--              </div>--}}
 
 
               <div class="top-menu ms-auto">
@@ -46,13 +46,15 @@
                                     <a class="dropdown-item" href="javascript:;" onclick="markNotificationRead('{{$notification->id}}')">
                                         <div class="d-flex align-items-center">
                                             <div class="user-online">
-                                                <img src="assets/images/avatars/avatar-1.png" class="msg-avatar" alt="user avatar">
+                                                <img src="{{asset('backend/assets/images/avatars/avatar-1.png')}}" class="msg-avatar" alt="user avatar">
                                             </div>
-                                            <div class="flex-grow-1">
-                                                <h6 class="msg-name">{{$notification->data['message']}}<span class="msg-time float-end">
+                                            <div class="flex-grow-1 ">
+                                                <h6 class="msg-name">{{$notification->data['message']}}
+                                                    <span class="msg-time float-end">
                                                         {{\Carbon\Carbon::parse($notification->created_at)->diffForHumans()}}
-                                                    </span></h6>
-                                                <p  class="msg-info"> New Cmr Created</p>
+                                                    </span>
+                                                </h6>
+                                                <p  class="msg-info">..</p>
                                                 @if($notification->read_at ==null)
                                                     <p id="p_{{$notification->id}}" class="newTag msg-header-badge">New</p>
                                                 @endif
@@ -65,7 +67,7 @@
                                 @endforeach
 
                             </div>
-                            <a href="javascript:;">
+                            <a href="{{route('all.notification')}}">
                                 <div class="text-center msg-footer">
                                     <button class="btn btn-primary w-100">View All Notifications</button>
                                 </div>

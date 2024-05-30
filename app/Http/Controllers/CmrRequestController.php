@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\CmrComplete;
+use App\Notifications\RequestCreated;
 use Illuminate\Http\Request;
 use App\Models\CmrRequest;
 use App\Models\FileTrack;
+use Illuminate\Support\Facades\Notification;
 
 class CmrRequestController extends Controller
 {
@@ -20,7 +23,7 @@ class CmrRequestController extends Controller
 
     public function RequestDetails($id){
         $CmrRequest = CmrRequest::find($id);
-          
+
         return view('user.cmr_request_details',compact('CmrRequest'));
     }
     public function RequestUpdate(Request $request, $id){
@@ -37,16 +40,16 @@ class CmrRequestController extends Controller
                 'report_file' => 'required|file'
             ];
             $request->validate($rules);
-            $file = $request->file('report_file');  
-    
+            $file = $request->file('report_file');
+
             $name_gen ='version_'.$CmrRequest->level.'_'.'cmr_id_'.$CmrRequest->cmr_id.'_user_'. auth()->id().'_'.date('YmdHis').'.'.$file->getClientOriginalExtension() ;
             $file->move(public_path('upload/cmr/'),$name_gen);
-     
+
            //check if has prevois file so update it
             $fileTrack = FileTrack::where('cmr_id',$CmrRequest->cmr_id)->where('user_id',auth()->id() )->where('status','1')
             ->where('version_number',$CmrRequest->level)
             ->first() ;
-           
+
              if(!empty($fileTrack)){
                 $fileTrack->update(['status'=>'0']);
              }
@@ -54,21 +57,24 @@ class CmrRequestController extends Controller
 
                 $file_track = FileTrack::create(['cmr_id' => $CmrRequest->cmr_id,'user_id'=>auth()->id() ,'version_number' =>$CmrRequest->level ,
                 'filename' => $name_gen , 'status'=>'1']);
-            
+
                     $CmrRequest->update(['status'=>'in_progress','file_track_id'=>$file_track->id]);
-            
+
                     $notification = array(
                         'message' => 'Sent Successfully',
                         'alert-type' => 'success'
                     );
-                    
-            
-                    return redirect()->route('request.details',$id)->with($notification);
-    
+
+            Notification::send($CmrRequest->cmr->owner,new RequestCreated($CmrRequest->user->name));
+
+
+
+            return redirect()->route('request.details',$id)->with($notification);
+
             }
-    
-        
-      
+
+
+
         $notification = array(
             'message' => 'You Cannot upload request when the status is rejected or pending  ',
             'alert-type' => 'error'
@@ -93,7 +99,7 @@ class CmrRequestController extends Controller
 
             'status'=>'approved'
         ]);
-      
+
          $cmr->update([
             'current_level' => intval($cmrRequest->level) +1,
             'last_version_file_track_id'=>$cmrRequest->file_track_id
@@ -111,10 +117,10 @@ class CmrRequestController extends Controller
 
         $cmrRequest = CmrRequest::find($id)->update([
             'status'=>'rejected',
-            'comment'=>$request->comment 
+            'comment'=>$request->comment
         ]);
-      
-         
+
+
         $notification = array(
             'message' => 'Request Decline Successfully',
             'alert-type' => 'success'

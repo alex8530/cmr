@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminMessage;
 use App\Models\Cmr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -291,5 +292,32 @@ class AdminController extends Controller
 
     }// End Method
 
+    public function AdminSendMessage  (Request $request )
+
+    {
+
+        /// Validation
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'message' => 'required',
+            'subject' => 'required',
+        ]);
+
+        $adminMessage=  new AdminMessage();
+        $adminMessage->name = $request->name;
+        $adminMessage->email = $request->email;
+        $adminMessage->message = $request->message;
+        $adminMessage->subject = $request->subject;
+        $adminMessage->save();
+
+
+        $notification = array(
+            'message' => 'Your Message Was Send Successfully',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
+    }
 
 }

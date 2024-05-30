@@ -60,7 +60,7 @@
                     </div>
 
                     <div class="col-md-6">
-                        <img id="showImage" src="{{ asset($site->logo) }}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80">
+                        <img id="showImage" src="{{ (!empty($site->logo)) ? url($site->logo) : url('upload/no_image.jpg')}}" alt="Admin" class="rounded-circle p-1 bg-primary" width="80">
 
                     </div>
 

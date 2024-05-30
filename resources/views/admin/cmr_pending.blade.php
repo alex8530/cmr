@@ -3,7 +3,7 @@
 
 <div class="page-content">
     <!--breadcrumb-->
-    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3"> 
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -20,7 +20,7 @@
         </div>
     </div>
     <!--end breadcrumb-->
-  
+
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
@@ -28,44 +28,48 @@
                     <thead>
                         <tr>
                             <th>Sl</th>
-                            <th>Title </th> 
-                            <th>Status </th>  
-                            <th>Owner </th>  
+                            <th>Title </th>
+                            <th>Status </th>
+                            <th>Owner </th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                       
-                        @foreach ($pending_cmrs as $key=> $item) 
+
+                        @foreach ($pending_cmrs as $key=> $item)
                         <tr>
                             <td>{{ $key+1 }}</td>
                             {{-- <td> <img src="{{ asset($item->image) }}" alt="" style="width: 70px; height:40px;"> </td> --}}
-                            <td>{{ $item->title }}</td> 
-                            <td>{{ $item->status }}</td> 
-                            <td>{{ $item->owner->name }}</td> 
+                            <td>{{ $item->title }}</td>
+                            <td>{{ $item->status }}</td>
+                            <td>{{ $item->owner->name }}</td>
                             <td>
-     
-       <a href="{{ route('cmr.details',$item->id) }}" class="btn btn-primary px-5" id="details">Details </a> 
+                                @can('cmr.details')
+       <a href="{{ route('cmr.details',$item->id) }}" class="btn btn-primary px-5" id="details">Details </a>
+                                @endcan
        {{-- @if($item->owner_id == auth()->user()->id) --}}
-       <a href="{{ route('cmr.edit',$item->id) }}" class="btn btn-info px-5">Edit </a> 
-       <a href="{{ route('cmr.delete',$item->id) }}" class="btn btn-danger px-5" id="delete">Delete </a> 
-        {{-- @endif --}}
+                                    @can('cmr.edit')
+       <a href="{{ route('cmr.edit',$item->id) }}" class="btn btn-info px-5">Edit </a>
+                                    @endcan
+                                @can('cmr.delete')
+       <a href="{{ route('cmr.delete',$item->id) }}" class="btn btn-danger px-5" id="delete">Delete </a>
+        {{-- @endif --}}  @endcan
                             </td>
                         </tr>
                         @endforeach
-                         
+
                     </tbody>
-                     
+
                 </table>
             </div>
         </div>
     </div>
 
 
-   
-   
+
+
 </div>
- 
+
 
 
 

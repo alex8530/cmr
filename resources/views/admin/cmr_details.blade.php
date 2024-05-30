@@ -34,7 +34,13 @@
                                         <h6 class="mb-0 text-primary">Status</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <label class="text-success">{{ $cmr->status }}</label>
+                                        @if ($cmr->status === 'complete' )
+                                            <label class="text-success">{{ $cmr->status }}</label>
+                                        @else
+                                            <label class="text-warning">{{ $cmr->status }}</label>
+
+                                        @endif
+
                                     </div>
                                 </div>
                                 @php
@@ -48,7 +54,9 @@
                                         <h6 class="mb-0 text-primary">Version 0</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
+                                        @can('cmr.download')
                                         <a href="{{ route('cmr.download', $file_track->filename) }}" class="btn btn-primary px-5">{{ $file_track->filename }}</a>
+                                        @endcan
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -97,7 +105,7 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            @if ($item->status === 'in_progress')
+                                                            @if ($item->status === 'in_progress' ||$item->status === 'pending' )
                                                                 <span class="badge bg-warning text-dark">{{ $item->status }}</span>
                                                             @elseif($item->status === 'rejected')
                                                                 <span class="badge bg-danger">{{ $item->status }}</span>

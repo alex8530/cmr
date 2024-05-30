@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CmrController;
 use App\Http\Controllers\CmrRequestController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\SettingController;
@@ -97,7 +98,7 @@ Route::controller(RoleController::class)->group(function(){
     Route::get('/delete/roles/{id}','DeleteRoles')->name('delete.roles')->middleware('can:role.delete');
 
 
-    Route::get('/add/roles/permission','AddRolesPermission')->name('add.roles.permission')->middleware('can:role.in.permission.menu');
+    Route::get('/add/roles/permission','AddRolesPermission')->name('add.roles.permission')->middleware('can:all.role.with.permission.add');
 
     Route::post('/role/permission/store','RolePermissionStore')->name('role.permission.store');
     Route::get('/all/roles/permission','AllRolesPermission')->name('all.roles.permission')->middleware('can:all.role.with.permission.menu');
@@ -137,6 +138,53 @@ Route::controller(AdminController::class)->group(function(){
 
 });
 
+
+
+
+    Route::controller(SettingController::class)->group(function(){
+        Route::get('/smtp/setting','SmtpSetting')->name('smtp.setting')->middleware('can:setting.smtp.menu');
+        Route::post('/update/smtp','SmtpUpdate')->name('update.smtp') ;
+
+
+        Route::post('/mark-notification-as-read/{notification}', [CmrController::class, 'MarkAsRead']);
+
+
+
+
+    });
+
+// Site Setting All Route
+    Route::controller(SettingController::class)->group(function(){
+        Route::get('/site/setting','SiteSetting')->name('site.setting')->middleware("can:setting.site.menu");
+        Route::post('/update/site','UpdateSite')->name('update.site');
+
+
+        Route::get('/testcall','testcall');
+
+
+    });
+
+
+// sign cmr
+    Route::controller(SignPdfController::class)->group(function(){
+        Route::get('/upload/pdf','uploadPdf')->name('upload.pdf')->middleware("can:upload.pdf");
+        Route::post('/upload/pdf','uploadPdfPost')->name('upload.pdf.post');
+        Route::post('/save/signature','saveSignature')->name('save.signature');
+
+    });
+
+
+
+// notification
+    Route::controller( NotificationController::class)->group(function(){
+        Route::get('/all/notification','allNotification')->name('all.notification');
+
+    });
+
+
+
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -147,38 +195,11 @@ Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.
 Route::get('/admin/register', [AdminController::class, 'AdminRegister'])->name('admin.register')->middleware('guest');
 Route::post('/admin/register', [AdminController::class, 'AdminSignup'])->name('admin.signup')->middleware('guest');
 
-// SMPT All Route
-Route::controller(SettingController::class)->group(function(){
-    Route::get('/smtp/setting','SmtpSetting')->name('smtp.setting')->middleware('can:setting.smtp.menu');
-    Route::post('/update/smtp','SmtpUpdate')->name('update.smtp') ;
 
-
-    Route::post('/mark-notification-as-read/{notification}', [CmrController::class, 'MarkAsRead']);
+Route::post('/admin/send/message', [AdminController::class, 'AdminSendMessage'])->name('admin.send.message') ;
 
 
 
-
-});
-
-// Site Setting All Route
-Route::controller(SettingController::class)->group(function(){
-    Route::get('/site/setting','SiteSetting')->name('site.setting');
-    Route::post('/update/site','UpdateSite')->name('update.site');
-
-
-    Route::get('/testcall','testcall');
-
-
-});
-
-
-// sign cmr
-Route::controller(SignPdfController::class)->group(function(){
-    Route::get('/upload/pdf','uploadPdf')->name('upload.pdf');
-    Route::post('/upload/pdf','uploadPdfPost')->name('upload.pdf.post');
-    Route::post('/save/signature','saveSignature')->name('save.signature');
-
-});
 
 
 

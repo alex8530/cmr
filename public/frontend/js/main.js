@@ -45,7 +45,7 @@ Author Email:   contact@techydevs.com
         var skillBar = $('.skillbar');
 
         /* ======= Preloader ======= */
-        preLoader.delay('500').fadeOut(2000);
+        preLoader.delay('500').fadeOut(1000);
 
         /*=========== Header top bar menu ============*/
         $document.on('click', '.down-button', function () {

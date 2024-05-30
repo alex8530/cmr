@@ -29,7 +29,7 @@
 	<link rel="stylesheet" href="{{asset('backend/assets/css/semi-dark.css')}}"/>
 	<link rel="stylesheet" href="{{asset('backend/assets/css/header-colors.css')}}"/>
 
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
+	<link rel="stylesheet" type="text/css" href="{{asset('frontend/css/toastr.css')}}" />
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-	<title>Rocker </title>
+	<title>CMR Project </title>
 
     <style>
 
@@ -273,7 +273,7 @@
 	</script>
 	<!--End Datatable-->
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script type="text/javascript" src="{{asset('frontend/js/toastr.min.js')}}"></script>
 
 <script>
  @if(Session::has('message'))

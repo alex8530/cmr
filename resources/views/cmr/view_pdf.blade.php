@@ -3,7 +3,8 @@
 <head>
     <title>View PDF</title>
     <!-- Include Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{'frontend/css/bootstrap.v4.5.2.min.css'}}" rel="stylesheet">
+{{--    <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" rel="stylesheet">--}}
     <style>
         body {
             background-color: #f1f1f1;
@@ -125,7 +126,7 @@
 
 
     <!-- Loader -->
-    <div id="loader" class="loader-container d-none">
+    <div id="loader" class="loader-container ">
         <div class="loader"></div>
     </div>
 </div>
@@ -278,7 +279,8 @@
         }
 
         // Show loader
-        document.getElementById('loader').classList.remove('d-none');
+        // document.getElementById('loader').classList.remove('d-none');
+        document.getElementById('loader').style.visibility = 'visible';
 
 
         const dataUrl = signaturePad.toDataURL();
@@ -303,7 +305,8 @@
             .then(response => response.blob())
             .then(blob => {
                 // Hide loader
-                document.getElementById('loader').classList.add('d-none');
+                // document.getElementById('loader').classList.add('d-none');
+                document.getElementById('loader').style.visibility = 'hidden';
 
 
                 const url = window.URL.createObjectURL(blob);
@@ -317,7 +320,8 @@
             })
             .catch(error => {
                 // Hide loader
-                document.getElementById('loader').classList.add('d-none');
+                // document.getElementById('loader').classList.add('d-none');
+                document.getElementById('loader').style.visibility = 'hidden';
 
                 console.error('Error:', error);
             });
@@ -344,6 +348,7 @@
 </script>
 <script>
     $(document).ready(function () {
+        document.getElementById('loader').style.visibility = 'hidden';
 
 
         $('#signature_pad_div').show()

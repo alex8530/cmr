@@ -25,16 +25,7 @@ return new class extends Migration
         });
 
 
-        DB::statement("CREATE TRIGGER update_cmr_trigger AFTER UPDATE
-           ON cmrs FOR EACH ROW
-           BEGIN
-           if OLD.title != NEW.title then
-             INSERT INTO logs(table_name, column_name, primary_key, old_value, new_value, action, changed_by, created_at, updated_at)
-             VALUES('cmrs', 'title', OLD.id, OLD.title, NEW.title, 'UPDATE', NEW.changed_by, NOW(), NOW());
-           end if ;
 
-           END;
-        ");
     }
 
     /**

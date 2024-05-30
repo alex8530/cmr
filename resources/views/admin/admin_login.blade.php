@@ -28,7 +28,7 @@
 	<div class="wrapper">
 		<div class="section-authentication-cover">
 
-			
+
 
 			<div class="">
 				<div class="row g-0">
@@ -40,7 +40,7 @@
                                  <img src="{{asset('backend/assets/images/login-images/login-cover.svg')}}" class="img-fluid auth-img-cover-login" width="650" alt=""/>
 							</div>
 						</div>
-						
+
 					</div>
 
 					<div class="col-12 col-xl-5 col-xxl-4 auth-cover-right align-items-center justify-content-center">
@@ -49,7 +49,7 @@
 								<div class="">
 			   <!-- Session Status -->
 			 <x-auth-session-status class="mb-4 text-center " :status="session('status')" />
-			 
+
 									<div class="mb-3 text-center">
 										<img src="{{asset('backend/assets/images/logo-icon.png')}}" width="60" alt="">
 									</div>
@@ -61,7 +61,7 @@
 
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
-              
+
 
 
                     <div class="col-12">
@@ -101,15 +101,15 @@
                     </div>
                 </form>
 									</div>
-									<div class="login-separater text-center mb-5"> <span>OR SIGN IN WITH</span>
-										<hr>
-									</div>
-									<div class="list-inline contacts-social text-center">
-										<a href="javascript:;" class="list-inline-item bg-facebook text-white border-0 rounded-3"><i class="bx bxl-facebook"></i></a>
-										<a href="javascript:;" class="list-inline-item bg-twitter text-white border-0 rounded-3"><i class="bx bxl-twitter"></i></a>
-										<a href="javascript:;" class="list-inline-item bg-google text-white border-0 rounded-3"><i class="bx bxl-google"></i></a>
-										<a href="javascript:;" class="list-inline-item bg-linkedin text-white border-0 rounded-3"><i class="bx bxl-linkedin"></i></a>
-									</div>
+{{--									<div class="login-separater text-center mb-5"> <span>OR SIGN IN WITH</span>--}}
+{{--										<hr>--}}
+{{--									</div>--}}
+{{--									<div class="list-inline contacts-social text-center">--}}
+{{--										<a href="javascript:;" class="list-inline-item bg-facebook text-white border-0 rounded-3"><i class="bx bxl-facebook"></i></a>--}}
+{{--										<a href="javascript:;" class="list-inline-item bg-twitter text-white border-0 rounded-3"><i class="bx bxl-twitter"></i></a>--}}
+{{--										<a href="javascript:;" class="list-inline-item bg-google text-white border-0 rounded-3"><i class="bx bxl-google"></i></a>--}}
+{{--										<a href="javascript:;" class="list-inline-item bg-linkedin text-white border-0 rounded-3"><i class="bx bxl-linkedin"></i></a>--}}
+{{--									</div>--}}
 
 								</div>
 							</div>
