@@ -10,11 +10,11 @@ services:
         restart: unless-stopped
         volumes:
             - .:/var/www/html
-        environment:
-            - DB_HOST=db
-            - DB_DATABASE=laravel
-            - DB_USERNAME=root
-            - DB_PASSWORD=root
+#        environment:
+#            - DB_HOST=db
+#            - DB_DATABASE=laravel
+#            - DB_USERNAME=root
+#            - DB_PASSWORD=root
         networks:
             - laravel
         depends_on:
@@ -42,8 +42,8 @@ services:
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: laravel
-            MYSQL_USER: root
-            MYSQL_PASSWORD: root
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
         ports:
             - "3308:3308"
         volumes:
