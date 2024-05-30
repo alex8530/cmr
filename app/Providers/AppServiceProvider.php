@@ -23,31 +23,36 @@ class AppServiceProvider extends ServiceProvider
     {
 
 
-       info("alex:::::boot:: " . env('APP_NAME', 'Laravel'));
+//       info("alex:::::boot:: " . env('APP_NAME', 'Laravel'));
 
-        // info("alex: boot from AppServiceProvider");
-       if (\Schema::hasTable('smtp_settings')) {
-        $smtpsetting = SmtpSetting::first();
+        try {
+            // info("alex: boot from AppServiceProvider");
+            if (\Schema::hasTable('smtp_settings')) {
+                $smtpsetting = SmtpSetting::first();
 
-        if ($smtpsetting) {
-        $data = [
-         'driver' => $smtpsetting->mailer,
-         'host' => $smtpsetting->host,
-         'port' => $smtpsetting->port,
-         'username' => $smtpsetting->username,
-         'password' => $smtpsetting->password,
-         'encryption' => $smtpsetting->encryption,
-         'from' => [
-             'address' => $smtpsetting->from_address,
-             'name' => Config::get('name', 'Alexa')
-         ]
+                if ($smtpsetting) {
+                    $data = [
+                        'driver' => $smtpsetting->mailer,
+                        'host' => $smtpsetting->host,
+                        'port' => $smtpsetting->port,
+                        'username' => $smtpsetting->username,
+                        'password' => $smtpsetting->password,
+                        'encryption' => $smtpsetting->encryption,
+                        'from' => [
+                            'address' => $smtpsetting->from_address,
+                            'name' => Config::get('name', 'Alexa')
+                        ]
 
-         ];
-         Config::set('mail',$data);
+                    ];
+                    Config::set('mail',$data);
+
+                }
+            } // end if
+
+
+        } catch (\Exception $e) {
 
         }
-    } // end if
-
 
 
         //
