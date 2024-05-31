@@ -36,7 +36,7 @@ COPY . /var/www/html
 RUN composer install --no-dev --optimize-autoloader
 
 # Set permissions
-RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Remove default Nginx configuration
 RUN rm /etc/nginx/sites-available/default
