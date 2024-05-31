@@ -5,11 +5,12 @@ FROM nginx:alpine
 #RUN apk update \ apk add --no-cache apache2-utils
 
 # Create directory for authentication file
-RUN mkdir -p /etc/nginx/auth
+#RUN mkdir -p /etc/nginx/auth
 
 # Generate .htpasswd file
 #RUN htpasswd -cb /etc/nginx/auth/.htpasswd alex alex123
-
+#dont need to install command and create password on the server..so
+#i copy it form local machine
 
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
