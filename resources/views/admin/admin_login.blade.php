@@ -6,7 +6,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--favicon-->
-	<link rel="icon" href="assets/images/favicon-32x32.png" type="image/png" />
+	
+  <!-- Favicons -->
+  <link href="{{ asset('template/assets/img/favicon.png')}}" rel="icon">
+  <link href="{{ asset('template/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+
+  
 	<!--plugins-->
 	<link href="{{asset('backend/assets/plugins/simplebar/css/simplebar.css')}}" rel="stylesheet" />
 	<link href="{{asset('backend/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css')}}" rel="stylesheet" />
@@ -51,7 +56,7 @@
 			 <x-auth-session-status class="mb-4 text-center " :status="session('status')" />
 
 									<div class="mb-3 text-center">
-										<img src="{{asset('backend/assets/images/logo-icon.png')}}" width="60" alt="">
+										<img src="{{asset('template/assets/img/apple-touch-icon.png')}}" width="60" alt="">
 									</div>
 									<div class="text-center mb-4">
 										<h5 class="">Admin Login</h5>

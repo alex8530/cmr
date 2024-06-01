@@ -32,22 +32,28 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy Laravel application files
 COPY . /var/www/html
 
+
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
 # Set permissions
 #RUN chown -R www-data:www-data   /var/www/html/bootstrap/cache
-#
+# Set correct permissions
+
 ##RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Remove default Nginx configuration
-RUN rm /etc/nginx/sites-available/default
+#RUN rm /etc/nginx/sites-available/default
 
 # Copy Nginx configuration file
 COPY nginx.conf /etc/nginx/sites-available/default
 
-# Expose port 80
-EXPOSE 80
+
+
+
+
+# Expose port 9002
+EXPOSE 9000
 
 # Start PHP-FPM and Nginx
 CMD ["sh", "-c", " php-fpm  && nginx -g 'daemon off;'"]

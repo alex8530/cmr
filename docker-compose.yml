@@ -2,13 +2,14 @@ version: '3.8'
 services:
     app:
         ports:
-            - "9002:9002"
+            - ":9000"
         build:
             context: .
             dockerfile: Dockerfile
         image: alexabuharb/cmr_app
         container_name: app_container
         restart: unless-stopped
+        tty: true
         volumes:
             - .:/var/www/html
 #        environment:
@@ -28,6 +29,7 @@ services:
             dockerfile: Dockerfile.nginx
         container_name: nginx_container
         restart: unless-stopped
+        tty: true
         ports:
             - "80:80"
         volumes:

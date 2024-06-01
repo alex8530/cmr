@@ -104,10 +104,10 @@ class AdminController extends Controller
     public function AdminProfileStore (Request $request ){
 
         // dd($request);
-        $request->validate([
-            'signature' => 'required|string',
-
-        ]);
+//        $request->validate([
+//            'signature' => 'required|string',
+//
+//        ]);
 
 
 
@@ -119,11 +119,15 @@ class AdminController extends Controller
         $data->phone = $request->phone;
         $data->address = $request->address;
 
-        $signatureDataUrl = $request->input('signature');
-        $signaturePath = 'signatures/' . Str::random(40) . '.png';
-        Storage::disk('public')->put($signaturePath, base64_decode(explode(',', $signatureDataUrl)[1]));
+        if($request->has('signature')){
+
+            $signatureDataUrl = $request->input('signature');
+            $signaturePath = 'signatures/' . Str::random(40) . '.png';
+            Storage::disk('public')->put($signaturePath, base64_decode(explode(',', $signatureDataUrl)[1]));
 //        $signatureFullPath = storage_path('app/public/' . $signaturePath);
-        $data->signaturePath=$signaturePath;
+            $data->signaturePath=$signaturePath;
+        }
+
 
 
         if ($request->file('photo')) {

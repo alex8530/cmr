@@ -12,5 +12,15 @@ FROM nginx:alpine
 #dont need to install command and create password on the server..so
 #i copy it form local machine
 
+# Ensure the directories exist and set permissions
+#RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache
+# Set correct permissions
+#RUN chown -R nginx:nginx /var/www/html/storage \
+#   && chown -R nginx:nginx /var/www/html/bootstrap/cache \
+#   && chmod -R 775 /var/www/html/storage \
+#  && chmod -R 775 /var/www/html/bootstrap/cache
+
+
+
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
