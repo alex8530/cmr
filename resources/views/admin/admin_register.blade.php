@@ -39,6 +39,9 @@
 									<div class="mb-3 text-center">
 										<img src="assets/images/logo-icon.png" width="60" alt="" />
 									</div>
+									<div class="mb-3 text-center">
+										<img src="{{asset('template/assets/img/apple-touch-icon.png')}}" width="60" alt="">
+									</div>
 									<div class="text-center mb-4">
 										<h5 class="">Alexa Admin</h5>
 										<p class="mb-0">Please fill the below details to create your account</p>
@@ -136,7 +139,7 @@
 											</div>
 										</form>
 									</div>
-									<div class="login-separater text-center mb-5"> <span>OR SIGN UP WITH EMAIL</span>
+									{{-- <div class="login-separater text-center mb-5"> <span>OR SIGN UP WITH EMAIL</span>
 										<hr/>
 									</div>
 									<div class="list-inline contacts-social text-center">
@@ -144,7 +147,7 @@
 										<a href="javascript:;" class="list-inline-item bg-twitter text-white border-0 rounded-3"><i class="bx bxl-twitter"></i></a>
 										<a href="javascript:;" class="list-inline-item bg-google text-white border-0 rounded-3"><i class="bx bxl-google"></i></a>
 										<a href="javascript:;" class="list-inline-item bg-linkedin text-white border-0 rounded-3"><i class="bx bxl-linkedin"></i></a>
-									</div>
+									</div> --}}
 
 								</div>
 							</div>

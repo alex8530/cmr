@@ -2,7 +2,11 @@ version: '3.8'
 services:
     app:
         ports:
+<<<<<<< HEAD
             - "9002:9000"
+=======
+            - "9000:9000"
+>>>>>>> c61dc7371eb65f358cd1056852f967c8bb1f1f94
         build:
             context: .
             dockerfile: Dockerfile
@@ -29,12 +33,16 @@ services:
             dockerfile: Dockerfile.nginx
         container_name: nginx_container
         restart: unless-stopped
+        tty: true
         ports:
             - "80:80"
+            - "443:443"
         volumes:
             - .:/var/www/html
             - ./nginx.conf:/etc/nginx/conf.d/default.conf
             - ./nginx_htpasswd:/etc/nginx/auth/.nginx_htpasswd
+            - ./cloudflare-origin.key:/etc/nginx/ssl/cloudflare-origin.key
+            - ./cloudflare-origin.crt:/etc/nginx/ssl/cloudflare-origin.crt
         networks:
             - laravel
         depends_on:

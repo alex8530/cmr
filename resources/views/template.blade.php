@@ -78,7 +78,7 @@
           <h1 data-aos="fade-up" class="">Welcome to <span>CMR System</span></h1>
           <p data-aos="fade-up" data-aos-delay="100" class="">Save your time and avoid printing papers anymore<br></p>
           <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-            <a href="#about" class="btn-get-started">Get Started</a>
+            <a href="{{route('admin.login')}}" class="btn-get-started">Get Started</a>
 {{--            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>--}}
           </div>
           <img src="{{ asset('template/assets/img/hero-services-img.webp')}}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
