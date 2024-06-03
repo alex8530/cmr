@@ -3,7 +3,7 @@
 <head>
     <title>View PDF</title>
     <!-- Include Bootstrap CSS -->
-    <link href="{{'frontend/css/bootstrap.v4.5.2.min.css'}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/bootstrap.v4.5.2.min.css')}}" rel="stylesheet">
 {{--    <link href="{{ asset('backend/assets/css/bootstrap.min.css') }}" rel="stylesheet">--}}
     <style>
         body {
@@ -142,6 +142,7 @@
 
 <script>
     const url = '{{ Storage::url($path) }}';
+    console.log(url +"<<<>>>");
 
     // Initialize PDF.js
     pdfjsLib.GlobalWorkerOptions.workerSrc = '{{asset("frontend/js/pdf.worker.min.js")}}';
