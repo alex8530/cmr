@@ -3,7 +3,7 @@
 <head>
     <title>Upload PDF</title>
     <!-- Include Bootstrap CSS -->
-    <link href="{{'frontend/css/bootstrap.v4.5.2.min.css'}}" rel="stylesheet">
+    <link href="{{asset('frontend/css/bootstrap.v4.5.2.min.css')}}" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
         body {

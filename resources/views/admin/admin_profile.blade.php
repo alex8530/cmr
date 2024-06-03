@@ -165,7 +165,7 @@
     ctx = canvas.getContext("2d");
 
     let image =  new Image();
-    image.src = '{{url('storage/'.$profileData->signaturePath) }}';
+    image.src = '{{url('storage/'.$profileData->signaturePath)}}';
       image.onload = function () {
          ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     };
@@ -177,14 +177,13 @@
 
       function resetCanvas() {
           signaturePad.clear()
-          console.log('asd')
       }
     function submitForm() {
 
-        if (signaturePad.isEmpty()) {
-            alert('Please provide a signature first.');
-            return;
-        }
+        // if (signaturePad.isEmpty()) {
+        //     alert('Please provide a signature first.');
+        //     return;
+        // }
 
       $('#signature').val(signaturePad.toDataURL())
 
