@@ -2,7 +2,11 @@ version: '3.8'
 services:
     app:
         ports:
+<<<<<<< HEAD
+            - "9002:9000"
+=======
             - "9000:9000"
+>>>>>>> c61dc7371eb65f358cd1056852f967c8bb1f1f94
         build:
             context: .
             dockerfile: Dockerfile
