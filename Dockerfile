@@ -42,15 +42,6 @@ RUN composer install --no-dev --optimize-autoloader
 
 ##RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Remove default Nginx configuration
-#RUN rm /etc/nginx/sites-available/default
-
-# Copy Nginx configuration file
-COPY nginx.conf /etc/nginx/sites-available/default
-
-
-
-
 
 # Expose port 9002
 EXPOSE 9000
