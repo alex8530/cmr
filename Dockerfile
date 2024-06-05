@@ -37,12 +37,12 @@ COPY . /var/www/html
 RUN composer install --no-dev --optimize-autoloader
 
 
-# Set permissions for Laravel directories
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-RUN find /var/www/html/storage -type d -exec chmod 775 {} \;
-RUN find /var/www/html/storage -type f -exec chmod 664 {} \;
-RUN find /var/www/html/bootstrap/cache -type d -exec chmod 775 {} \;
-RUN find /var/www/html/bootstrap/cache -type f -exec chmod 664 {} \;
+# # Set permissions for Laravel directories
+# RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cachex
+# RUN find /var/www/html/storage -type d -exec chmod 775 {} \;
+# RUN find /var/www/html/storage -type f -exec chmod 664 {} \;
+# RUN find /var/www/html/bootstrap/cache -type d -exec chmod 775 {} \;
+# RUN find /var/www/html/bootstrap/cache -type f -exec chmod 664 {} \;
 
 
 # Expose port 9002
