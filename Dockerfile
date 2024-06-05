@@ -5,23 +5,23 @@ FROM php:8.2-fpm
 WORKDIR /var/www/html
 
 # Install dependencies
-RUN apt-get update && apt-get install -y \
-    nginx \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl \
-    libonig-dev \
-    libzip-dev \
-    telnet \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
+#RUN apt-get update && apt-get install -y \
+#    nginx \
+#    libpng-dev \
+#    libjpeg62-turbo-dev \
+#    libfreetype6-dev \
+#    locales \
+#    zip \
+#    jpegoptim optipng pngquant gifsicle \
+#    vim \
+#    unzip \
+#    git \
+#    curl \
+#    libonig-dev \
+#    libzip-dev \
+#    telnet \
+#    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+#    && docker-php-ext-install pdo pdo_mysql mbstring exif pcntl bcmath gd zip
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -34,22 +34,18 @@ COPY . /var/www/html
 
 
 # Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader
+#RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions
-#RUN chown -R www-data:www-data   /var/www/html/bootstrap/cache
-# Set correct permissions
 
-##RUN chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache
-
-# Remove default Nginx configuration
-#RUN rm /etc/nginx/sites-available/default
+# Set permissions for Laravel directories
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN find /var/www/html/storage -type d -exec chmod 775 {} \;
+RUN find /var/www/html/storage -type f -exec chmod 664 {} \;
+RUN find /var/www/html/bootstrap/cache -type d -exec chmod 775 {} \;
+RUN find /var/www/html/bootstrap/cache -type f -exec chmod 664 {} \;
 
 # Copy Nginx configuration file
-COPY nginx.conf /etc/nginx/sites-available/default
-
-
-
+#COPY nginx.conf /etc/nginx/sites-available/default
 
 
 # Expose port 9002
