@@ -10,7 +10,7 @@ sudo apt install openssl php8.3-bcmath php8.3-curl php8.3-json php8.3-mbstring p
 
 TO check mysql user::
 mysql -u root -p -h 127.0.0.1 --port=3306..
-Enter password: 
+Enter password:
 ERROR 1698 (28000): Access denied for user 'root'@'localhost'
 
 ===================================================================
@@ -22,7 +22,7 @@ FLUSH PRIVILEGES;
 EXIT;
 ====================================================================================
 -======================================================================================
-this error 403 forbidden return in nginx 
+this error 403 forbidden return in nginx
 GET /storage/ HTTP/1.1" 403 134 "http://127.0.0.1:8888/upload/pdf"
 
 The solution is: give the nginx user for below path:
@@ -34,7 +34,7 @@ i should put php fom and nginx to the same user if not
 -to check php fpm username:sudo nano /etc/php/8.3/fpm/pool.d/www.conf
 -to check nginx username: cat /etc/nginx/nginx.conf
 -to change nginx to www-data:
- 
+
 1.1 Open the Nginx Configuration File:
 sudo nano /etc/nginx/nginx.conf
 
@@ -42,23 +42,31 @@ sudo nano /etc/nginx/nginx.conf
 user www-data www-data;
 
 2.1 Change Ownership of the Web Root Directory:
- 
+
 sudo chown -R www-data:www-data    /var/www/html/laravelproject/public
 
 2.2 Change Ownership of the Nginx Log Directory:
 
 Assuming your Nginx logs are in /var/log/nginx:
 sudo chown -R www-data:www-data /var/log/nginx
- 
-4. Reload and Restart Nginx 
+
+4. Reload and Restart Nginx
 sudo systemctl daemon-reload
 
 
 ===================Steps must to  do after build and run the Docker  =============
-* In Laravell App Docker : 
-1-composer install
-2-php artisan storage:link
-3-mkdir storage/app/public/signed_pdfs
+* In Laravell App Docker :
+docker ps
+docker exec -it id sh
+cd projectpath
+composer install
+php artisan storage:link
+mkdir storage/app/public/signed_pdfs
+php artisan config:clear
+php artisan config:cache
+php artisan optimize
+php artisan optimize:clear
+php artisan migrate:fresh --seed
 
 errors and solutions:
 The stream or file "/var/www/html/storage/logs/laravel.log" could not be opened in append mode: F
@@ -70,7 +78,7 @@ solution:
 ==
 
 nginx:
--chown -R nginx:nginx  /var/www/html/public/storage 
- and for  boostrapp
+chown -R nginx:nginx /var/www/html/storage /var/www/html/bootstrap/cache
+chmod -R 775  /var/www/html/storage /var/www/html/bootstrap/cache
 
 

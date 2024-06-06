@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use setasign\Fpdi\Fpdi;
 use Illuminate\Support\Str;
+use TCPDF;
+
 
 class SignPdfController extends Controller
 {
@@ -85,14 +87,13 @@ class SignPdfController extends Controller
         $pdf->useTemplate($templateId, 0, 0,333,333, false);
         */
 
-
+/*
         $pdf = new FPDI();
 
         $pageCount =  $pdf->setSourceFile($pdfFullPath);
         for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
             $templateId = $pdf->importPage($pageNo);
             $size = $pdf->getTemplateSize($templateId);
-            // info ( 'alex:: arraysize ' .json_encode( $size) );
 
             // create a page (landscape or portrait depending on the imported page size)
             if ($size['width'] > $size['height']) {
@@ -106,29 +107,14 @@ class SignPdfController extends Controller
             $pdf->SetFont('Helvetica');
             // $pdf->SetXY(5, 5);
 
-
             list($imgWidth, $imgHeight) = getimagesize($signatureFullPath);
 
-            // Convert the coordinates to PDF scale
-            // $pdfWidth = $pdf->GetPageWidth();
-            // $pdfHeight = $pdf->GetPageHeight();
             $pdfWidth = $pdf->GetPageWidth();
             $pdfHeight = $pdf->GetPageHeight();
 
 
             $x = ($position['x'] / $canvasWidth) * $pdfWidth;
             $y = ($position['y'] / $canvasHeight) * $pdfHeight;
-            info ( 'alex:: XX ' .$x);
-            info ( 'alex:: YY ' . $y);
-            info ( 'alex:: canvasWidth ' . $canvasWidth);
-            info ( 'alex:: canvasHeight ' . $canvasHeight);
-            info ( 'alex:: pdfWidth ' . $pdfWidth);
-            info ( 'alex:: pdfHeight ' . $pdfHeight);
-            info ( 'alex:: imgWidth ' . $imgWidth);
-            info ( 'alex:: imgHeight ' . $imgHeight);
-            // info ( 'alex:: $pdfHeight - $y - ($imgHeight / 4) ' . ($pdfHeight - $y - ($imgHeight / 4)));
-            info ( 'alex:: $pdfHeight - $y - ($imgHeight / 4) ' . ($imgWidth * ($imgWidth / $pdfWidth)));
-            info ( 'alex::  $imgWidth / 9 ' . ( $imgWidth / 9));
 
             if ($pageNo == $page_num) {
                 $pdf->Image($signatureFullPath, $x,  $y  , $imgWidth /10, $imgHeight / 10);
@@ -140,11 +126,53 @@ class SignPdfController extends Controller
 
         return response()->download($outputPath);
 
+
         // } catch (\Throwable $th) {
         //throw $th;
         // info('alex::err ' . $th);
         // }
 
+*/
+
+
+
+        $pdf = new TCPDF();
+
+        $pageCount = $pdf->setSourceFile($pdfFullPath);
+        for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
+            $tplIdx = $pdf->importPage($pageNo);
+            $size = $pdf->getTemplateSize($tplIdx);
+
+            // Create a page (landscape or portrait depending on the imported page size)
+            if ($size['width'] > $size['height']) {
+                $pdf->AddPage('L', array($size['width'], $size['height']));
+            } else {
+                $pdf->AddPage('P', array($size['width'], $size['height']));
+            }
+
+            // Use the imported page
+            $pdf->useTemplate($tplIdx);
+
+            $pdf->SetFont('helvetica', '', 12);
+            // $pdf->SetXY(5, 5);
+
+            list($imgWidth, $imgHeight) = getimagesize($signatureFullPath);
+
+            $pdfWidth = $pdf->getPageWidth();
+            $pdfHeight = $pdf->getPageHeight();
+
+            $x = ($position['x'] / $canvasWidth) * $pdfWidth;
+            $y = ($position['y'] / $canvasHeight) * $pdfHeight;
+
+            if ($pageNo == $page_num) {
+                $pdf->Image($signatureFullPath, $x, $y, $imgWidth / 10, $imgHeight / 10);
+            }
+        }
+
+        $outputPath = storage_path('app/public/signed_pdfs/' . basename($pdfPath));
+        $pdf->Output($outputPath, 'F');
+
+        return response()->download($outputPath);
     }
 
 }
